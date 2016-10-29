@@ -4,7 +4,7 @@
   "description": "# What is this? This is the source code for a chrome extension, it lets you translate words =)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-content": "browserify src/content_scripts/main_content_script.js -o src/build/bundle.js"
   },
   "repository": {
     "type": "git",

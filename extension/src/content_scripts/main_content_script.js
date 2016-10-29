@@ -1,5 +1,7 @@
 'use strict'
-console.log("index.js")
+
+const TranslationInfo = require("../lib/TranslationInfo.js")
+
 let text = null;
 
 document.addEventListener('selectionchange', function(e) {
@@ -42,30 +44,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 })
 
-const TranslationInfo = function(translation, originalWord) {
-	this.translation = translation
-	this.originalWord = originalWord
-}
-
-
-/*
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-		console.log(JSON.stringify(request, null, 2))
-		console.log(text)
-		let translation = request.body[0] // Change this on server?
-		let node = text.focusNode // Not sure if I should edit this?
-
-		let splittedNodeData = node.data.split(" ")
-
-		let translationString = splittedNodeData.map((word) => {
-			if (word === translation.word) {
-				return translation.translation
-			}
-
-			return word
-		})
-
-		let patchedTranslation = translationString.join(" ")
-		node.textContent = patchedTranslation
-})
-*/
+// const TranslationInfo = function(translation, originalWord) {
+// 	this.translation = translation
+// 	this.originalWord = originalWord
+// }
