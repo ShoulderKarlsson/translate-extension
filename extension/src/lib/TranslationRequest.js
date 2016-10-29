@@ -13,7 +13,7 @@ TranslateRequest.prototype.doRequest = function() {
 		return translation;
 	})
 	.catch(function(error) {
-		console.log(error);
+		console.log('TranslateRequest - doRequest error!', error);
 	})
 }
 

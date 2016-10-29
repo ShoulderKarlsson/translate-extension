@@ -19,7 +19,6 @@
 
   "background": {
     "scripts": ["src/build/background-bundle.js"]
-    // "scripts": ["src/background/background.js"]
   },
 
   "permissions": [ "contextMenus", "http://*/*", "https://*/*" ]

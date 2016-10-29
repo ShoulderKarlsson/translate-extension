@@ -4,11 +4,17 @@
 console.log('background.js')
 
 const TranslateRequest = require("../lib/TranslationRequest.js");
+const Menu = require('../lib/Menu.js')
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	console.log("from index.js - ", request);
-	let title = request.text
+	// console.log("from index.js - ", request);
+	
+	// let title = request.text
+	
+	let M = new Menu(request.text);
+	M.updateMenu();
 
+	/*
 	if (title !== "") {
 		chrome.contextMenus.removeAll(function() {
 			chrome.contextMenus.create({
@@ -30,27 +36,77 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			})	
 		})
 	}
+	*/
+
 })
 
-
-// const TranslateRequest = function(word) {
-// 	this.word = word;
+// const Menu = function(text) {
+// 	this.text = text
 // }
 
-// TranslateRequest.prototype.doRequest = function() {
-// 	return fetch('http://localhost:3000/translate/' + this.word)
-// 	.then(function(response) {
-// 		return response.json()
-// 	})
-// 	.then(function(translation) {
-// 		// console.log(translation)
-// 		return translation;
-// 	})
-// 	.catch(function(error) {
-// 		console.log(error);
+// Menu.prototype.updateMenu = function() {
+// 	chrome.contextMenus.removeAll(() => {
+// 		chrome.contextMenus.create(this.GetNewMenu())
 // 	})
 // }
-},{"../lib/TranslationRequest.js":2}],2:[function(require,module,exports){
+
+// Menu.prototype.GetNewMenu = function() {
+// 	let title = 'Translate: ' + this.text
+// 	return {
+// 		'title': title,
+// 		'type': 'normal',
+// 		'contexts': ['selection'],
+// 		onclick: this.onClick.bind(this)
+// 	}
+// }
+
+// Menu.prototype.onClick = function() {
+// 	let TR = new TranslateRequest(this.text)
+// 	TR.doRequest()
+// 	.then((translation) => {
+// 		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+// 			chrome.tabs.sendMessage(tabs[0].id, {translations: translation}, () => {})
+// 		})
+// 	})
+// 	.catch((error) => console.log('Menu.prototype.onClick error - ', error))
+// }
+},{"../lib/Menu.js":2,"../lib/TranslationRequest.js":3}],2:[function(require,module,exports){
+'use strict'
+const TranslateRequest = require("../lib/TranslationRequest.js");
+
+const Menu = function(text) {
+	this.text = text
+}
+
+Menu.prototype.updateMenu = function() {
+	chrome.contextMenus.removeAll(() => {
+		chrome.contextMenus.create(this.GetNewMenu())
+	})
+}
+
+Menu.prototype.GetNewMenu = function() {
+	let title = 'Translate: ' + this.text
+	return {
+		'title': title,
+		'type': 'normal',
+		'contexts': ['selection'],
+		onclick: this.onClick.bind(this)
+	}
+}
+
+Menu.prototype.onClick = function() {
+	let TR = new TranslateRequest(this.text)
+	TR.doRequest()
+	.then((translation) => {
+		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+			chrome.tabs.sendMessage(tabs[0].id, {translations: translation}, () => {})
+		})
+	})
+	.catch((error) => console.log('Menu.prototype.onClick error - ', error))
+}
+
+module.exports = Menu
+},{"../lib/TranslationRequest.js":3}],3:[function(require,module,exports){
 'use strict'
 
 const TranslateRequest = function(word) {
