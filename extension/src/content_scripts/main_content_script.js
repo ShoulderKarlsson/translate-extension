@@ -2,40 +2,57 @@
 
 const TranslationInfo = require("../lib/TranslationInfo.js")
 
-let text = null;
 
-document.addEventListener('selectionchange', function(e) {
-	text = window.getSelection();
-	let request = 'updateContext';
+const Main_Content = function() {
+	this.text = null
+	this.request = 'updateContext'
+}
 
-	// Some sort of validation is neccessary
-	// when generating the contextMenu.
-	if (text.toString().length > 2 && text.toString().length < 20) {
+Main_Content.prototype.init = function() {
+	this.addSelectionListener()
+	this.messageEventListener()
+}
+
+Main_Content.prototype.addSelectionListener = function() {
+	document.addEventListener('selectionchange', this.selectionChange.bind(this))
+}
+
+Main_Content.prototype.selectionChange = function() {
+	this.text = window.getSelection()
+	if (this.text.toString().length > 2 &&
+		this.text.toString().length < 20) {
 		chrome.runtime.sendMessage({
-			request: 'updateContext',
-			text: text.toString()
+			request: this.updateContext,
+			text: this.text.toString()
 		})
 	}
-})
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	let translations = request.translations
-	let node = text.focusNode
+}
 
-	// Make oneline
-	let translationInfo = translations.map((translationInfo) => {
-		return new TranslationInfo(translationInfo['0'].translation, translationInfo['0'].word);
+Main_Content.prototype.messageEventListener = function() {
+	chrome.runtime.onMessage.addListener(this.messageListener.bind(this))
+}
+
+Main_Content.prototype.messageListener = function(request, sender, sendResponse)  {
+	let translations = request.translations
+	let node = this.text.focusNode
+
+	let translationInfo = translations.map((info) => {
+		return new TranslationInfo(info['0'].translation, info['0'].word)
 	})
 
-
-	console.log(JSON.stringify(translationInfo, null, 2))
 	let splitted = node.data.split(" ")
 
 	for (let i = 0; i < splitted.length; i++) {
 		for (let j = 0; j < translationInfo.length; j++) {
-			if (splitted[i] === translationInfo[j].originalWord)
+			if (splitted[i] === translationInfo[j].originalWord) {
 				splitted[i] = translationInfo[j].translation
+			}
 		}
 	}
 
-	node.textContent = splitted.join(" ");
-})
+	node.textContent = splitted.join(" ")
+
+}
+
+let m = new Main_Content();
+m.init()
