@@ -1,0 +1,25 @@
+{
+  "name": "Translate",
+  "manifest_version": 2,
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "src/icons/icon16.png",
+    "default_popup": "src/index.html"
+  },
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "48": "src/icons/icon48.png"
+  },
+
+
+  "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["src/index.js"]
+  }],
+
+  "background": {
+    "scripts": ["src/background.js"]
+  },
+
+  "permissions": [ "contextMenus", "http://*/*", "https://*/*" ]
+}
