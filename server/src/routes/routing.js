@@ -18,7 +18,6 @@ router.route('/translate/:word')
     let b = new Builder(word);
     b.buildRequest()
     .then((translations) => {
-        console.log(JSON.stringify(translations, null, 2))
         res.send(translations)
     })
     .catch((error) => {
