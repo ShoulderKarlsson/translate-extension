@@ -14,12 +14,12 @@
 
   "content_scripts": [{
       "matches": ["<all_urls>"],
-      // "js": ["src/content_scripts/main_content_script.js"]
-      "js": ["src/build/bundle.js"]
+      "js": ["src/build/content-bundle.js"]
   }],
 
   "background": {
-    "scripts": ["src/background/background.js"]
+    "scripts": ["src/build/background-bundle.js"]
+    // "scripts": ["src/background/background.js"]
   },
 
   "permissions": [ "contextMenus", "http://*/*", "https://*/*" ]

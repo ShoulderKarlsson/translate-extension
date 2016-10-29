@@ -4,7 +4,8 @@
   "description": "# What is this? This is the source code for a chrome extension, it lets you translate words =)",
   "main": "index.js",
   "scripts": {
-    "build-content": "browserify src/content_scripts/main_content_script.js -o src/build/bundle.js"
+    "build-content": "browserify src/content_scripts/main_content_script.js -o src/build/content-bundle.js",
+    "build-background": "browserify src/background/background.js -o src/build/background-bundle.js"
   },
   "repository": {
     "type": "git",
