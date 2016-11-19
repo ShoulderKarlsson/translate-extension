@@ -10,6 +10,8 @@ const Request = function(word, targetLanguage) {
 }
 
 Request.prototype.getTranslation = function () {
+
+    // Make this into function - return url urlBuilder() ? 
     const url = 'https://www.googleapis.com/language/translate/v2?q=' + this.word + '&target=' + this.targetLanguage + '&key=' + this.API_KEY;
     return request.get(url)
     .then((response) => JSON.parse(response))
