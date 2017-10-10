@@ -20,9 +20,9 @@ Menu.prototype.GetNewMenu = () => {
 	}
 }
 
-Menu.prototype.onClick = async () => {
+Menu.prototype.onClick = () => {
 	let TR = new TranslateRequest(this.text)
-	await TR.doRequest()
+	TR.doRequest()
 	.then((translation) => {
 		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
 			chrome.tabs.sendMessage(tabs[0].id, {translations: translation}, () => {})

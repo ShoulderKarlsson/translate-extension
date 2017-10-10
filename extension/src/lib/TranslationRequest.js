@@ -2,14 +2,10 @@ const TranslateRequest = word => {
 	this.word;
 }
 
-TranslateRequest.prototype.doRequest = async () => {
-	return await('http://localhost:3000/translate/' + this.word)
-	.then(response => {
-		return response.json()
-	})
-	.then(translation => {
-		return translation;
-	})
+TranslateRequest.prototype.doRequest = () => {
+	return ('http://localhost:3000/translate/' + this.word)
+	.then(response => response.json())
+	.then(translation => translation)
 	.catch(error => {
 		console.log('TranslateRequest - doRequest error!', error);
 	})
