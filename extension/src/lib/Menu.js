@@ -1,17 +1,16 @@
-'use strict'
 const TranslateRequest = require("../lib/TranslationRequest.js");
 
-const Menu = function(text) {
+const Menu = text => {
 	this.text = text
 }
 
-Menu.prototype.updateMenu = function() {
+Menu.prototype.updateMenu = () => {
 	chrome.contextMenus.removeAll(() => {
 		chrome.contextMenus.create(this.GetNewMenu())
 	})
 }
 
-Menu.prototype.GetNewMenu = function() {
+Menu.prototype.GetNewMenu = () => {
 	let title = 'Translate: ' + this.text
 	return {
 		'title': title,
@@ -21,7 +20,7 @@ Menu.prototype.GetNewMenu = function() {
 	}
 }
 
-Menu.prototype.onClick = function() {
+Menu.prototype.onClick = () => {
 	let TR = new TranslateRequest(this.text)
 	TR.doRequest()
 	.then((translation) => {

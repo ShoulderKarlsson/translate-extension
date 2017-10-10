@@ -3,21 +3,21 @@
 const TranslationInfo = require("../lib/TranslationInfo.js")
 
 
-const Main_Content = function() {
+const Main_Content = () => {
 	this.text = null
 	this.request = 'updateContext'
 }
 
-Main_Content.prototype.init = function() {
+Main_Content.prototype.init = () => {
 	this.addSelectionListener()
 	this.messageEventListener()
 }
 
-Main_Content.prototype.addSelectionListener = function() {
+Main_Content.prototype.addSelectionListener = () => {
 	document.addEventListener('selectionchange', this.selectionChange.bind(this))
 }
 
-Main_Content.prototype.selectionChange = function() {
+Main_Content.prototype.selectionChange = () => {
 	this.text = window.getSelection()
 	if (this.text.toString().length > 2 &&
 		this.text.toString().length < 20) {
@@ -28,11 +28,11 @@ Main_Content.prototype.selectionChange = function() {
 	}
 }
 
-Main_Content.prototype.messageEventListener = function() {
+Main_Content.prototype.messageEventListener = () => {
 	chrome.runtime.onMessage.addListener(this.messageListener.bind(this))
 }
 
-Main_Content.prototype.messageListener = function(request, sender, sendResponse)  {
+Main_Content.prototype.messageListener = (request, sender, sendResponse) => {
 	let translations = request.translations
 	let node = this.text.focusNode
 

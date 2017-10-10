@@ -18,6 +18,8 @@
     "url": "https://github.com/ShoulderKarlsson/translate-extension/issues"
   },
   "homepage": "https://github.com/ShoulderKarlsson/translate-extension#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^14.4.0"
   }
 }

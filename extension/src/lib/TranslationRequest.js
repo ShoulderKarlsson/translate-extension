@@ -1,18 +1,12 @@
-'use strict'
-
-const TranslateRequest = function(word) {
-	this.word = word;
+const TranslateRequest = word => {
+	this.word;
 }
 
-TranslateRequest.prototype.doRequest = function() {
-	return fetch('http://localhost:3000/translate/' + this.word)
-	.then(function(response) {
-		return response.json()
-	})
-	.then(function(translation) {
-		return translation;
-	})
-	.catch(function(error) {
+TranslateRequest.prototype.doRequest = () => {
+	return ('http://localhost:3000/translate/' + this.word)
+	.then(response => response.json())
+	.then(translation => translation)
+	.catch(error => {
 		console.log('TranslateRequest - doRequest error!', error);
 	})
 }

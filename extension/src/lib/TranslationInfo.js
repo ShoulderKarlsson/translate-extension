@@ -1,6 +1,4 @@
-'use strict'
-
-const TranslationInfo = function(translation, originalWord) {
+const TranslationInfo = (translation, originalWord) => {
 	this.translation = translation
 	this.originalWord = originalWord
 }

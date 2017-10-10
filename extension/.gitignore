@@ -3,3 +3,5 @@ src/build/content-bundle.js
 
 src/icons/icon16.png
 src/icons/icon48.png
+
+node_modules
