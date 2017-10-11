@@ -3,9 +3,10 @@
 const router = require('express').Router()
 const Request = require('../lib/Request.js')
 const Builder = require('../lib/Builder.js')
+const paramValidator = require('./middlewares/paramValidator')
 
 router.route('/translate/:word')
-.get((req, res) => {
+.get(paramValidator, (req, res) => {
 
     /**
      * TODO: Make sure empty words cant pass through
