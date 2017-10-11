@@ -1,3 +1,2 @@
-module.exports = (req, res, next) => (
-  word.length > 0 ? res.send(400) : next()
-)
+module.exports = ({ params }, res, next) =>
+  params.word.length > 0 ? next() : res.sendStatus(400)
